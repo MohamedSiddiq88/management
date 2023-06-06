@@ -27,11 +27,7 @@ function SideBar(){
             </div>
 
            
-            {/* Teacher Profile*/}
-            <div className="group" onClick={()=>history.push("/teacher")}>
-            <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
-            <span>Teacher Profiles</span>  
-            </div>
+           
            
         </div>
     );

@@ -6,72 +6,61 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { AppStates } from "../Context/AppProvider";
 
-
-
-  //field validation
-  export const fieldValidationSchema=yup.object({
-    name:yup.string().required("Please enter the Name"),
-    age:yup.number().required("Please enter the Age").min(15,"Please Enter Valid Age minimum Age is 15").max(24,"Please Enter Valid Age maximum Age is 24"),
-    gender:yup.string().required("Please enter the Gender"),
-    clas:yup.string().required("Please enter the Class"),
-    bloodGroup:yup.string().required("Please enter the Blood Group")
-  })
-
+// Field validation
+export const fieldValidationSchema = yup.object({
+  name: yup.string().required("Please enter the Name"),
+  batch: yup.string().required("Please enter the Batch"),
+  qualification: yup.string().required("Please enter the Qualification"),
+  experience: yup.number().required("Please enter the Experience"),
+  taskComplition: yup.number().required("Please enter the Task Completion"),
+  gender: yup.string().required("Please enter the Gender"),
+});
 
 function Add() {
-  const {data,setData}=AppStates();
+  const { data, setData } = AppStates();
 
-  const {handleSubmit, values, handleChange,handleBlur,touched,errors}=useFormik({
-    initialValues:{
-      name:"",
-      age:"",
-      gender:"", 
-      clas:"",
-      bloodGroup:""
+  const { handleSubmit, values, handleChange, handleBlur, touched, errors } = useFormik({
+    initialValues: {
+      name: "",
+      batch: "",
+      qualification: "",
+      experience: 0,
+      taskComplition: 0,
+      gender: "",
     },
-    validationSchema:fieldValidationSchema,
-    onSubmit:(newStudentData)=>{
-      console.log("onsubmit",newStudentData)
-      createStudent(newStudentData)
+    validationSchema: fieldValidationSchema,
+    onSubmit: (newStudentData) => {
+      console.log("onsubmit", newStudentData);
+      createStudent(newStudentData);
     }
-  })
+  });
 
-
-  // to ahndel onsubmit
-  const createStudent = async(newStudentData) => {
-    
-    //fetch data
-    const response=await fetch("https://645899734eb3f674df7800be.mockapi.io/students", {
-      method:"POST",
-      body:JSON.stringify(newStudentData),
-      headers:{
-        "content-Type":"application/json" 
+  // To handle onSubmit
+  const createStudent = async (newStudentData) => {
+    // Fetch data
+    const response = await fetch("https://express-deploy-pi.vercel.app/students/add", {
+      method: "POST",
+      body: JSON.stringify(newStudentData),
+      headers: {
+        "content-Type": "application/json"
       }
-    })
+    });
 
-    const data2=await response.json();
+    const data2 = await response.json();
 
-    
-
-    setData([...data, data2])
+    setData([...data, data2]);
   }
 
   return (
-    <Base
-      heading={"Add Data"}
-    >
+    <Base heading={"Add Data"}>
       <div className="container">
         {/* row*/}
         <div className="row add-container">
-
-
           {/* col */}
           <div className="col-12">
-
             {/* col add-form*/}
-            <form className="container add-form " onSubmit={handleSubmit}>
+            <form className="container add-form" onSubmit={handleSubmit}>
               <h1 className="add-heading"><b>Add Student's Data</b></h1>
-
 
               <TextField
                 fullWidth
@@ -83,23 +72,55 @@ function Add() {
                 onBlur={handleBlur}
                 className="textField"
               />
-              <div style={{color:"red"}}>{touched.name && errors.name ? errors.name : ""}</div>
-              
-
+              <div style={{ color: "red" }}>{touched.name && errors.name ? errors.name : ""}</div>
 
               <TextField
                 fullWidth
-                placeholder="Enter the Age"
-                name="age"
-                type="age"
-                value={values.age}
+                placeholder="Enter the Batch"
+                name="batch"
+                type="batch"
+                value={values.batch}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className="textField"
               />
-              <div style={{color:"red"}}>{touched.age && errors.age  ? errors.age : ""}</div>
-              
+              <div style={{ color: "red" }}>{touched.batch && errors.batch ? errors.batch : ""}</div>
 
+              <TextField
+                fullWidth
+                placeholder="Enter the Qualification"
+                name="qualification"
+                type="qualification"
+                value={values.qualification}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="textField"
+              />
+              <div style={{ color: "red" }}>{touched.qualification && errors.qualification ? errors.qualification : ""}</div>
+
+              <TextField
+                fullWidth
+                placeholder="Enter the Experience"
+                name="experience"
+                type="experience"
+                value={values.experience}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="textField"
+              />
+              <div style={{ color: "red" }}>{touched.experience && errors.experience ? errors.experience : ""}</div>
+
+              <TextField
+                fullWidth
+                placeholder="Enter the Task Completion"
+                name="taskComplition"
+                type="taskComplition"
+                value={values.taskComplition}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="textField"
+              />
+              <div style={{ color: "red" }}>{touched.taskComplition && errors.taskComplition ? errors.taskComplition : ""}</div>
 
               <TextField
                 fullWidth
@@ -111,57 +132,15 @@ function Add() {
                 onBlur={handleBlur}
                 className="textField"
               />
-              <div style={{color:"red"}}>{touched.gender && errors.gender  ? errors.gender : ""}</div>
-              
+              <div style={{ color: "red" }}>{touched.gender && errors.gender ? errors.gender : ""}</div>
 
-
-              <TextField
-                fullWidth
-                placeholder="Enter the Class"
-                name="clas"
-                type="clas"
-                value={values.clas}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="textField"
-              />
-              <div style={{color:"red"}}>{touched.clas && errors.clas  ? errors.clas : ""}</div>
-              
-
-              <TextField
-                fullWidth
-                placeholder="Enter the Blood Group"
-                name="bloodGroup"
-                type="bloodGroup"
-                value={values.bloodGroup}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="textField"
-              />
-              <div style={{color:"red"}}>{touched.bloodGroup && errors.bloodGroup  ? errors.bloodGroup : ""}</div>
-              
-
-
-
-
-
-
-              <button type="submit" className='btn btn-success' >Add</button>
+              <button type="submit" className='btn btn-success'>Add</button>
             </form>
           </div>
         </div>
       </div>
-
-
-
-
-
-
     </Base>
   );
-
 }
 
-
-
-export default Add
+export default Add;

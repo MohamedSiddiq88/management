@@ -34,8 +34,8 @@ function Edit() {
       name: "",
       batch: "",
       qualification: "",
-      experience: 0,
-      taskComplition: 0,
+      experience: "",
+      taskComplition: "",
       gender: "",
     },
     validationSchema: fieldValidationSchema,
@@ -73,7 +73,7 @@ function Edit() {
     data[ind] = editedData;
 
     const response = await fetch(
-      `https://express-deploy-pi.vercel.app/edit/647cb3c63d9e10c954fcf2d4`,
+      `https://express-deploy-pi.vercel.app/students/edit/${values.id}`,
 
       {
         method: "PUT",
@@ -111,6 +111,7 @@ function Edit() {
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="textField"
               />
               <div style={{ color: "red" }}>
                 {touched.name && errors.name ? errors.name : ""}
@@ -123,6 +124,7 @@ function Edit() {
                 value={values.batch}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="textField"
               />
               <div style={{ color: "red" }}>
                 {touched.batch && errors.batch ? errors.batch : ""}
@@ -135,6 +137,7 @@ function Edit() {
                 value={values.qualification}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="textField"
               />
               <div style={{ color: "red" }}>
                 {touched.qualification && errors.qualification
@@ -149,6 +152,7 @@ function Edit() {
                 value={values.experience}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="textField"
               />
               <div style={{ color: "red" }}>
                 {touched.experience && errors.experience
@@ -163,6 +167,7 @@ function Edit() {
                 value={values.taskComplition}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="textField"
               />
               <div style={{ color: "red" }}>
                 {touched.taskComplition && errors.taskComplition
@@ -177,6 +182,7 @@ function Edit() {
                 value={values.gender}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="textField"
               />
               <div style={{ color: "red" }}>
                 {touched.gender && errors.gender ? errors.gender : ""}
